@@ -4,24 +4,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!btnSalvar || !formAlunos) return;
 
+    // Determina a URL do servidor de acordo com o ambiente
+    const BASE_URL = window.location.hostname.includes("localhost")
+        ? "http://127.0.0.1:5000"
+        : "https://SEU_APP_RENDER.onrender.com"; // <--- substitua pela sua URL do Render
+
     btnSalvar.addEventListener("click", async function (event) {
         event.preventDefault();
 
-        const dados = {
-            pagina: "formulario4",
-            motivacao: formAlunos.motivacao?.value || "",
-            frequencia_treino: formAlunos.frequencia_treino?.value || "",
-            horario_preferido: formAlunos.horario_preferido?.value || "",
-            idade: formAlunos.idade?.value || ""
-        };
+        // Monta o objeto de dados dinamicamente
+        const dados = {};
+        dados.pagina = formAlunos.dataset.pagina || "formulario4";
+
+        Array.from(formAlunos.elements).forEach(el => {
+            if (el.name) {
+                if (el.type === "checkbox") {
+                    if (!dados[el.name]) dados[el.name] = [];
+                    if (el.checked) dados[el.name].push(el.value);
+                } else if (el.type === "radio") {
+                    if (el.checked) dados[el.name] = el.value;
+                } else {
+                    dados[el.name] = el.value || "";
+                }
+            }
+        });
 
         console.log("Fui clicado ahah");
         console.log(dados);
-
-        // Detecta se está rodando local ou online
-        const BASE_URL = window.location.hostname.includes("localhost")
-            ? "http://127.0.0.1:5000"
-            : "https://SEU_APP_RENDER.onrender.com"; // <--- substitua pela sua URL do Render
 
         try {
             const resposta = await fetch(`${BASE_URL}/enviar`, {
@@ -31,9 +40,12 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             if (resposta.ok) {
-                window.location.href = "obrigado.html";
+                console.log("Dados enviados com sucesso!");
+                const proximaPagina = formAlunos.dataset.next || "obrigado.html";
+                window.location.href = proximaPagina;
             } else {
-                alert("Erro ao enviar os dados.");
+                const erro = await resposta.json().catch(() => ({}));
+                alert("Erro ao enviar: " + (erro.erro || "Erro desconhecido"));
             }
         } catch (err) {
             console.error("Erro ao conectar com o servidor:", err);

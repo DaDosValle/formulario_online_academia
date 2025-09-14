@@ -4,31 +4,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!btnSalvar || !formAlunos) return;
 
+    // Determina a URL do servidor de acordo com o ambiente
+    const BASE_URL = window.location.hostname.includes("localhost")
+        ? "http://127.0.0.1:5000"
+        : "https://SEU_APP_RENDER.onrender.com"; // <--- substitua pela sua URL do Render
+
     btnSalvar.addEventListener("click", async function (event) {
         event.preventDefault();
 
-        const dados = {
-            pagina: "formulario1",
-            motivacao: formAlunos.motivacao?.value || "",
-            frequencia_treino: formAlunos.frequencia_treino?.value || "",
-            horario_preferido: formAlunos.horario_preferido?.value || "",
-            idade: formAlunos.idade?.value || "",
-            regiao: formAlunos.regiao?.value || "",
-            estado_civil: formAlunos.estado_civil?.value || "",
-            pessoas_casa: formAlunos.pessoas_casa?.value || "",
-            profissao: formAlunos.profissao?.value || "",
-            motivacao_primeira: formAlunos.motivacao_primeira?.value || "",
-            importa_academia: formAlunos.importa_academia?.value || "",
-            medo: formAlunos.medo?.value || ""
-        };
+        // Monta o objeto de dados dinamicamente
+        const dados = {};
+        dados.pagina = formAlunos.dataset.pagina || "formulario1";
+
+        // Adiciona todos os campos do formulário automaticamente
+        Array.from(formAlunos.elements).forEach(el => {
+            if (el.name) {
+                if (el.type === "checkbox") {
+                    dados[el.name] = el.checked;
+                } else if (el.type === "radio") {
+                    if (el.checked) dados[el.name] = el.value;
+                } else {
+                    dados[el.name] = el.value || "";
+                }
+            }
+        });
 
         console.log("Fui clicado!");
         console.log(dados);
-
-        // Detecta se está rodando local ou online
-        const BASE_URL = window.location.hostname.includes("localhost")
-            ? "http://127.0.0.1:5000"
-            : "https://SEU_APP_RENDER.onrender.com"; // <--- substitua pela sua URL do Render
 
         try {
             const resposta = await fetch(`${BASE_URL}/enviar`, {
@@ -38,9 +40,10 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             if (resposta.ok) {
-                window.location.href = "formulario2.html";
+                const proximaPagina = formAlunos.dataset.next || "formulario2.html";
+                window.location.href = proximaPagina;
             } else {
-                alert("Erro ao enviar os dados");
+                alert("Erro ao enviar os dados.");
             }
         } catch (err) {
             console.error("Erro ao conectar com o servidor:", err);

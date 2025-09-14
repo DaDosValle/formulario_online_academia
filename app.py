@@ -7,7 +7,15 @@ import os
 import json
 
 app = Flask(__name__)
-CORS(app)  # Permitir requisições de outras origens
+
+# --------------------------
+# Configuração CORS
+# --------------------------
+# Permite localhost para testes e URL do Render
+CORS(app, resources={r"/*": {"origins": [
+    "http://127.0.0.1:5500",
+    "https://seu_app_render.onrender.com"
+]}})
 
 # --------------------------
 # Configuração Google Sheets via variável de ambiente
@@ -15,7 +23,6 @@ CORS(app)  # Permitir requisições de outras origens
 scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 
-# Pega o conteúdo JSON da variável de ambiente
 creds_json = os.environ.get("GOOGLE_CREDS")
 if not creds_json:
     raise Exception("Variável de ambiente GOOGLE_CREDS não encontrada!")
@@ -24,7 +31,7 @@ creds_dict = json.loads(creds_json)
 creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 client = gspread.authorize(creds)
 
-SHEET_ID = "1PG1NMh5gN2N77PEN301qtMTpvT63ks5AOa4A_X08h4E"  # Substituir pelo ID da planilha
+SHEET_ID = "1PG1NMh5gN2N77PEN301qtMTpvT63ks5AOa4A_X08h4E"  # Substitua pelo ID da planilha
 sheet = client.open_by_key(SHEET_ID).sheet1
 
 # --------------------------
@@ -32,7 +39,6 @@ sheet = client.open_by_key(SHEET_ID).sheet1
 # --------------------------
 CSV_FILE = "respostas_formulario.csv"
 
-# Todos os campos do formulário
 CAMPOS_CSV = [
     "pagina",
     "nome", "email",

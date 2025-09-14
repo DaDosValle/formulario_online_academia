@@ -4,26 +4,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!btnSalvar || !formAlunos) return;
 
+    // Determina a URL do servidor de acordo com o ambiente
+    const BASE_URL = window.location.hostname.includes("localhost")
+        ? "http://127.0.0.1:5000"
+        : "https://SEU_APP_RENDER.onrender.com"; // <--- substitua pela sua URL do Render
+
     btnSalvar.addEventListener("click", async function (event) {
         event.preventDefault();
 
-        const nome = formAlunos.nome?.value || "";
-        const email = formAlunos.email?.value || "";
+        // Monta o objeto de dados dinamicamente
+        const dados = {};
+        dados.pagina = formAlunos.dataset.pagina || "index";
+
+        // Adiciona todos os campos do formulário automaticamente
+        Array.from(formAlunos.elements).forEach(el => {
+            if (el.name) {
+                if (el.type === "checkbox") {
+                    dados[el.name] = el.checked;
+                } else if (el.type === "radio") {
+                    if (el.checked) dados[el.name] = el.value;
+                } else {
+                    dados[el.name] = el.value || "";
+                }
+            }
+        });
 
         console.log("Fui clicado ahah");
-        console.log("Nome:", nome);
-        console.log("Email:", email);
-
-        const dados = {
-            pagina: "index",
-            nome: nome,
-            email: email
-        };
-
-        // Determina a URL do servidor de acordo com o ambiente
-        const BASE_URL = window.location.hostname.includes("localhost")
-            ? "http://127.0.0.1:5000"
-            : "https://SEU_APP_RENDER.onrender.com"; // <--- substitua pela sua URL do Render
+        console.log(dados);
 
         try {
             const resposta = await fetch(`${BASE_URL}/enviar`, {
@@ -33,7 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             if (resposta.ok) {
-                window.location.href = "formulario1.html";
+                const proximaPagina = formAlunos.dataset.next || "formulario1.html";
+                window.location.href = proximaPagina;
             } else {
                 alert("Erro ao enviar dados.");
             }
