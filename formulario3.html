@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corpo Evolution3</title>
+   <link rel="stylesheet" href="style/styleFormulario3.css">
+   <script src="./js/formulario3.js" defer></script>
+
+  
+</head>
+<body>
+    
+    <main>
+        <section class="videoApresentacao">
+            <h1>Corpo Evolution</h1>
+            <p>Benefícios e Acompanhamento</p>
+            <img class="video" src="asserts/3.png" alt="Apresentação">
+        </section>
+       
+        <section class="boxFormulario">
+            
+            <form id="form33">
+
+                <div class="grupoInput">
+
+                    <!-- Indicação da academia -->
+                    <div>
+                        <label>Você indicaria a Corpo Evolution para um amigo?</label>
+                        <div class="reside">
+                            <label class="textoOpcao">
+                                <input type="radio" class="caixaOpcao" name="indicaria" value="Sim">
+                                Sim
+                            </label>
+                            <label class="textoOpcao">
+                                <input type="radio" class="caixaOpcao" name="indicaria" value="Nao">
+                                Não
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Programa de fidelidade -->
+                    <div>
+                        <label>Quais vantagens gostaria de ver no programa de fidelidade?</label>
+                        <select class="selectPadrao" name="fidelidade" required>    
+                            <option value="Descontos">Descontos</option>
+                            <option value="Premios">Prêmios e brindes</option>
+                            <option value="Aulas Extras">Aulas Extras</option>
+                            <option value="Plano Familia">Plano Família</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                    </div>
+
+                    <!-- Contribuição para saúde -->
+                    <div>
+                        <label>Quanto a Corpo Evolution contribui para sua saúde e bem-estar?</label>
+                        <div style="position: relative; width: 375px;">
+                            <input type="range" name="Contribuicao" min="1" max="5" step="1" style="width: 80%;">
+                            <div style="display: flex; justify-content: space-between; font-size: 14px; padding: 0 1px;">
+                                <span>Nada</span>
+                                <span>Pouco</span>
+                                <span>Na média</span>
+                                <span>Muito</span>
+                                <span>Totalmente</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medição mensal -->
+                    <div>
+                        <label>Você gostaria de ser medido(a) e pesado(a) todos os meses?</label>
+                        <div class="reside">
+                            <label class="textoOpcao">
+                                <input type="radio" class="caixaOpcao" name="medicao_mensal" value="Sim">
+                                Sim
+                            </label>
+                            <label class="textoOpcao">
+                                <input type="radio" class="caixaOpcao" name="medicao_mensal" value="Nao">
+                                Não
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Motivo para trocar de academia -->
+                    <div class="motivacao">
+                        <label>Na sua opinião, o que leva um aluno a trocar uma academia por outra?</label>
+                        <div class="motivacaoCheck">
+                            <label>
+                                <input type="checkbox" name="motivo_troca" value="Localizacao">
+                                Localização
+                            </label>
+                            <label>
+                                <input type="checkbox" name="motivo_troca" value="Preco">
+                                Preço
+                            </label>
+                            <label>
+                                <input type="checkbox" name="motivo_troca" value="Acompanhamento">
+                                Acompanhamento
+                            </label>
+                            <label>
+                                <input type="checkbox" name="motivo_troca" value="Equipamento">
+                                Equipamento
+                            </label>
+                            <label>
+                                <input type="checkbox" name="motivo_troca" value="Outros">
+                                Outro motivo
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Humor da academia -->
+                    <div>
+                        <label>Se a Corpo Evolution fosse humano, qual seria o humor dela?</label>
+                        <select class="selectPadrao" name="humor_academia" required>    
+                            <option value="Alegre">Alegre</option>
+                            <option value="Forte">Forte</option>
+                            <option value="Irritada">Irritada</option>
+                            <option value="Acolhedora">Acolhedora</option>
+                            <option value="Calma">Calma</option>
+                            <option value="Brincalhona">Brincalhona</option>
+                            <option value="Seria">Séria</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <!-- Botão -->
+                <button id="btnForm3" type="submit" id="enviar">Enviar</button>
+
+
+
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        Desenvolvido por Fernando Cientista de Dados e Marketing Digital
+    </footer>  
+ 
+</body>
+</html>

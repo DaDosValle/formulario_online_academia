@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(164, 181, 255);
+    color: rgb(0, 0, 0);
+    width: 100%;
+    min-height: 100vh;
+}
+
+main {
+    display: flex;
+    justify-content: space-between;
+    padding: 3% 5%;
+    gap: 3%;
+}
+
+.videoApresentacao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 3rem;
+    text-align: center;
+}
+
+p {
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-size: 2rem;
+    color: rgb(91, 21, 172);
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.boxFormulario {
+    display: flex;
+    width: 100%;
+    padding: 4% 3%;
+    background-color: #e5e5e5;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px 7px #5e5e5e;
+}
+
+.grupoInput {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+label {
+    display: flex;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    padding-top: 20px;
+    padding-bottom: 6px;
+}
+
+input {
+    border: thin solid rgb(164, 181, 255);
+    border-radius: 10px;
+    font-size: 1rem;
+    padding: 4.5%;
+    margin-top: 1%;
+    margin-bottom: 3%;
+    outline: none;
+    box-shadow: 1px 1px 6px #1f1e1e1c;
+}
+
+.motivacaoCheck {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.motivacaoCheck label {
+    display: flex;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-weight: 100;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    
+}
+
+.frequencia {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 2px;
+    padding-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.frequenciaLabel label {
+    font-family: 'Segoe Ui';
+    font-size: 1.2rem;
+    font-weight: 100;
+}
+
+.reside {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+
+}
+
+.reside label {
+    font-family: 'Segoe Ui';
+    font-size: 1.2rem;
+    font-weight: 100
+}
+
+#resideLabel {
+    display: flex;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.estadoCivil {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.7rem;
+}
+
+.estadoCivil label {
+    font-family: 'Segoe Ui';
+    font-size: 1.2rem;
+    font-weight: 100
+}
+
+#idade {
+    padding: 7px 20px;
+}
+
+#horario,
+#regiao,
+#primeiraVez,
+#medo {
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: thin solid rgb(222, 215, 240);
+    outline: none;
+    box-shadow: 3px 3px 6px #1f1e1e1c;
+}
+
+
+
+h3 {
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    padding-top: 8%;
+}
+
+.opcoesCivil {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-family: Verdana, Tahoma, sans-serif;
+    font-size: 0.9rem;
+    margin-bottom: 8%;
+    gap: 15px;
+}
+
+#textoOpcao {
+    display: flex;
+    font-size: 1.2rem;
+    font-weight: 300;
+    padding-right: 25px;
+}
+
+#caixaOpcao {
+    width: 30px;
+}
+
+
+.importaLabel label {
+    font-family: 'Segoe Ui';
+    font-size: 1.2rem;
+    font-weight: 100
+}
+
+
+/* Botão de envio */
+button {
+    display: flex;
+    width: 300px;
+    height: 45px;
+    margin: 5% 0 0 0;
+    border-radius: 10px;
+    background-color: rgb(30, 59, 223);
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    width: 305px;
+    height: 50px;
+    background-color: rgb(164, 181, 255);
+    font-size: 1.3rem;
+    color: rgb(0, 0, 0);
+}
+
+footer {
+    display: flex;
+    background-color: black;
+    font-size: 1.2rem;
+    color: rgb(165, 228, 18);
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+}

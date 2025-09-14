@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corpo Evolution2</title>
+    <link rel="stylesheet" href="style/styleFormulario2.css">
+    <script src="./js/formulario2.js" defer></script>
+    
+</head>
+<body>
+    <main>
+        <section class="videoApresentacao">
+            <h1>Corpo Evolution</h1>
+            <p>Benefícios e Acompanhamento</p>
+            <img class="video" src="asserts/3.png" alt="Apresentação da Academia">
+        </section>
+       
+        <section class="boxFormulario">
+            <form id="form2">
+
+                <div class="grupoInput">
+                    <!-- O que Mais Gosta da academia -->
+                    <div>
+                        <label for="maisGosta">O que você <strong>MAIS</strong> gosta da Corpo Evolution?</label>
+                        <select id="maisGosta" name="maisGosta" required>    
+                            <option value="Espaco">Do espaço da academia</option>
+                            <option value="Aparelho">Dos aparelhos de musculação</option>
+                            <option value="Uelliton">Do proprietário Uelliton</option>
+                            <option value="Funcionarios">Dos funcionários</option>
+                            <option value="Limpeza">Da limpeza</option>
+                            <option value="Ventilacao">Da ventilação</option>
+                            <option value="Funcional">Da funcional</option>
+                            <option value="Acompanhamento">Do acompanhamento individualizado</option>
+                        </select>
+                    </div>
+
+                    <!-- O que Menos Gosta da academia -->
+                    <div>
+                        <label for="menosGosta">O que você <strong>MENOS</strong> gosta da Corpo Evolution?</label>
+                        <select id="menosGosta" name="menosGosta" required>    
+                            <option value="Espaco">Do espaço da academia</option>
+                            <option value="Aparelho">Dos aparelhos de musculação</option>
+                            <option value="Uelliton">Do proprietário Uelliton</option>
+                            <option value="Funcionarios">Dos funcionários</option>
+                            <option value="Limpeza">Da limpeza</option>
+                            <option value="Ventilacao">Da ventilação</option>
+                            <option value="Funcional">Da funcional</option>
+                            <option value="Acompanhamento">Do acompanhamento individualizado</option>
+                        </select>
+                    </div>
+
+                    <!-- Nota para Atendimento -->
+                    <div>
+                        <label for="notaAtendimento">Qual nota para o atendimento da academia?</label>
+                        <div style="position: relative; width: 295px;">
+                            <input type="range" id="notaAtendimento" name="notaAtendimento" min="1" max="5" step="1" style="width: 100%;">
+                            <div style="display: flex; justify-content: space-between; font-size: 14px; padding: 0 1px;">
+                                <span>1 péssimo</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span>4</span>
+                                <span>5 ótimo</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Como conheceu a academia -->
+                    <div>
+                        <label>Como você chegou até a Corpo Evolution?</label>
+                        <div class="maisGosta">
+                            <label class="textoOpcao">
+                                <input type="radio" class="caixaOpcao" name="comoIngressou" value="Indicacao" required>
+                                Indicação de amigo/parente
+                            </label>
+                            <label class="textoOpcao">
+                                <input type="radio" class="caixaOpcao" name="comoIngressou" value="Redes Sociais">
+                                Por Redes Sociais
+                            </label>
+                            <label class="textoOpcao">
+                                <input type="radio" class="caixaOpcao" name="comoIngressou" value="Fachada">
+                                Passei na Frente e Gostei
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Ja treinou em outra academia -->
+                    <div class="estadoCivil">
+                        <h3>Antes da Corpo Evolution, você já treinou em outra academia?</h3>
+                        <div class="opcoesCivil">
+                            <input type="radio" class="caixaOpcao" name="treinouAntes" value="Sim" required>
+                            <label class="textoOpcao">Sim. Já treinei antes</label>
+                            <input type="radio" class="caixaOpcao" name="treinouAntes" value="Nao">
+                            <label class="textoOpcao">Não. Meu primeiro treino foi aqui</label>
+                        </div>
+                    </div>
+
+                    <!-- Qual Rede Social Mais usa -->
+                    <div class="motivacao">
+                        <label>Qual a sua Rede Social/Site favorita?</label>
+                        <div class="motivacaoCheck">
+                            <label><input type="checkbox" name="redesSociais" value="Facebook"> Facebook</label>
+                            <label><input type="checkbox" name="redesSociais" value="Instagram"> Instagram</label>
+                            <label><input type="checkbox" name="redesSociais" value="YouTube"> YouTube</label>
+                            <label><input type="checkbox" name="redesSociais" value="TikTok"> TikTok</label>
+                        </div>
+                    </div>
+
+                    <!-- Satisfacao com o Acompanhamento -->
+                    <div class="horario">
+                        <label for="acompanhamento">Você sente que recebe acompanhamento suficiente em seu treino?</label>
+                        <select id="acompanhamento" name="acompanhamento" required>    
+                            <option value="Sim">Sim</option>
+                            <option value="Nao">Não</option>
+                        </select>
+                    </div>
+
+                    <!-- Modalidades Desejadas -->
+                    <div>
+                        <label for="modalidades">Você gostaria de mais modalidades na academia?</label>
+                        <select id="modalidades" name="modalidades" required>    
+                            <option value="Fitdance">Fitdance</option>
+                            <option value="Aerobox">Aerobox</option>
+                            <option value="Infantil">Atividade/Espaço infantil</option>
+                            <option value="Yoga">Yoga</option>
+                            <option value="Ventre">Dança do Ventre</option>
+                        </select>
+                    </div>
+
+                    
+                    <!-- Influencia da Localidade -->
+                    <div>
+                        <label>A localização da Corpo Evolution faz diferença para você?</label>
+                        <div class="reside">
+                            <label class="textoOpcao">
+                                <input type="radio" class="caixaOpcao" name="localizacaoImporta" value="Sim" required>
+                                Sim
+                            </label>
+                            <label class="textoOpcao">
+                                <input type="radio" class="caixaOpcao" name="localizacaoImporta" value="Nao">
+                                Não
+                            </label>
+                        </div>
+                    </div>                                                   
+                </div>
+
+                <!-- Botão -->    
+                <button id="btnForm2" type="submit">Próximo</button>
+
+
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        Desenvolvido por Fernando Cientista de Dados e Marketing Digital
+    </footer>
+
+</body>
+</html>
