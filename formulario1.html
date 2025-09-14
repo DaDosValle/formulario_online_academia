@@ -77,7 +77,8 @@
                             <label for="horario">Qual horário você prefere treinar?</label>
                         </div>
                         <div>
-                            <select id="horario" name="horario_preferido" required>    
+                            <select id="horario" name="horario_preferido"  required placeholder="">
+                                <option value="0"></option>    
                                 <option value="5-7">Das 5h às 7h</option>
                                 <option value="7-9">Das 7h às 9h</option>
                                 <option value="9-11">Das 9h às 11h</option>
@@ -93,13 +94,14 @@
                     <!-- Idade -->
                     <div class="idade">    
                         <label for="idade">Sua idade:</label>
-                        <input id="idade" type="number" name="idade" min="10" max="80" placeholder="Aqui" required autocomplete="on">
+                        <input id="idade" type="number" name="idade" min="10" max="80" placeholder="" required autocomplete="on">
                     </div>
 
                     <!-- Região -->
                     <div class="regiao">
                         <label for="regiao">Qual a Sua Região:</label>
-                        <select id="regiao" name="regiao" required>    
+                        <select id="regiao" name="regiao" required>
+                            <option value="0"></option>    
                             <option value="bico_doce">Bico Doce</option>
                             <option value="largo">Largo</option>
                             <option value="invasao">Invasão</option>
@@ -157,7 +159,7 @@
                     <!-- Profissão -->
                     <div class="profissao">
                         <label for="profissao">Com o que você trabalha?</label>
-                        <input id="profissao" name="profissao" placeholder="Digite aqui">
+                        <input id="profissao" name="profissao" placeholder="">
                     </div>
 
                     <!-- Primeira vez -->
@@ -165,7 +167,8 @@
                         <div>
                             <label for="primeiraVez">O que te motivou a treinar pela 1ª vez?</label>
                         </div>
-                        <select id="primeiraVez" name="motivacao_primeira" required>    
+                        <select id="primeiraVez" name="motivacao_primeira" required>
+                            <option value="0"></option>    
                             <option value="emagrecer">Emagrecer</option>
                             <option value="musculo">Ganhar Músculos</option>
                             <option value="saude">Melhorar Problema de Saúde</option>
@@ -213,7 +216,8 @@
                         <div>
                             <label for="medo">Qual sua maior preocupação?</label>
                         </div>
-                        <select id="medo" name="medo" required>    
+                        <select id="medo" name="medo" required>
+                            <option value="0"></option>    
                             <option value="beleza">Diminuir a Beleza</option>
                             <option value="acamado">Ficar Acamado</option>
                             <option value="dependencia">Na velhice - Depender dos outros</option>
