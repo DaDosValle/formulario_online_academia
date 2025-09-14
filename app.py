@@ -11,9 +11,7 @@ app = Flask(__name__)
 # --------------------------
 # Configuração CORS
 # --------------------------
-# Libera todas as rotas e origens (inclusive OPTIONS)
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
-
 
 # --------------------------
 # Configuração Google Sheets via variável de ambiente
@@ -29,7 +27,7 @@ creds_dict = json.loads(creds_json)
 creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 client = gspread.authorize(creds)
 
-SHEET_ID = "1PG1NMh5gN2N77PEN301qtMTpvT63ks5AOa4A_X08h4E"  # sua planilha
+SHEET_ID = "1PG1NMh5gN2N77PEN301qtMTpvT63ks5AOa4A_X08h4E"  #planilha
 sheet = client.open_by_key(SHEET_ID).sheet1
 
 # --------------------------
@@ -48,6 +46,20 @@ CAMPOS_CSV = [
     "indicaria", "fidelidade", "contribuicao", "medicao_mensal", "motivo_troca", "humor_academia"
 ]
 
+# --------------------------
+# Cabeçalho no Google Sheets
+# --------------------------
+def garantir_cabecalho():
+    try:
+        cabecalho_existente = sheet.row_values(1)
+        if cabecalho_existente != CAMPOS_CSV:
+            # Substitui a primeira linha pelos campos corretos
+            sheet.delete_row(1)
+            sheet.insert_row(CAMPOS_CSV, 1)
+    except Exception as e:
+        print("Erro ao verificar/ajustar cabeçalho:", e)
+
+garantir_cabecalho()
 
 # --------------------------
 # Rota para receber dados
@@ -55,7 +67,6 @@ CAMPOS_CSV = [
 @app.route("/enviar", methods=["POST", "OPTIONS"])
 def receber_dados():
     if request.method == "OPTIONS":
-        # 🔥 Responde ao preflight (necessário para CORS)
         return jsonify({"status": "ok"}), 200
 
     dados = request.json or {}
@@ -65,13 +76,13 @@ def receber_dados():
     # Salvar no Google Sheets
     # --------------------------
     try:
-        linha_sheet = []
-        for campo in CAMPOS_CSV:
-            valor = dados.get(campo, "")
-            if isinstance(valor, list):
-                valor = ", ".join(valor)
-            linha_sheet.append(valor)
-        sheet.append_row(linha_sheet)
+        linha_sheet = [dados.get(campo, "") for campo in CAMPOS_CSV]
+
+        # Garante que o tamanho da linha bate com o cabeçalho
+        while len(linha_sheet) < len(CAMPOS_CSV):
+            linha_sheet.append("")
+
+        sheet.append_row(linha_sheet, value_input_option="USER_ENTERED")
     except Exception as e:
         print("Erro ao salvar no Google Sheets:", e)
 
@@ -97,7 +108,6 @@ def receber_dados():
         print("Erro ao salvar CSV:", e)
 
     return jsonify({"status": "ok", "mensagem": "Dados recebidos com sucesso"}), 200
-
 
 # --------------------------
 # Rodar app (local apenas)
