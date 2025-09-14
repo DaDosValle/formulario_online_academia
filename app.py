@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS # type: ignore
+from flask_cors import CORS
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import csv
@@ -11,8 +11,8 @@ app = Flask(__name__)
 # --------------------------
 # Configuração CORS
 # --------------------------
-# Permite localhost para testes e URL do Render
-CORS(app, resources={r"/enviar": {"origins": "*"}})
+# Libera todas as rotas e origens (inclusive OPTIONS)
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 
 # --------------------------
@@ -29,7 +29,7 @@ creds_dict = json.loads(creds_json)
 creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 client = gspread.authorize(creds)
 
-SHEET_ID = "1PG1NMh5gN2N77PEN301qtMTpvT63ks5AOa4A_X08h4E"  # Substitua pelo ID da planilha
+SHEET_ID = "1PG1NMh5gN2N77PEN301qtMTpvT63ks5AOa4A_X08h4E"  # sua planilha
 sheet = client.open_by_key(SHEET_ID).sheet1
 
 # --------------------------
@@ -48,12 +48,17 @@ CAMPOS_CSV = [
     "indicaria", "fidelidade", "contribuicao", "medicao_mensal", "motivo_troca", "humor_academia"
 ]
 
+
 # --------------------------
 # Rota para receber dados
 # --------------------------
-@app.route("/enviar", methods=["POST"])
+@app.route("/enviar", methods=["POST", "OPTIONS"])
 def receber_dados():
-    dados = request.json
+    if request.method == "OPTIONS":
+        # 🔥 Responde ao preflight (necessário para CORS)
+        return jsonify({"status": "ok"}), 200
+
+    dados = request.json or {}
     print("Recebido:", dados)
 
     # --------------------------
@@ -93,8 +98,9 @@ def receber_dados():
 
     return jsonify({"status": "ok", "mensagem": "Dados recebidos com sucesso"}), 200
 
+
 # --------------------------
-# Rodar app
+# Rodar app (local apenas)
 # --------------------------
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080, debug=True)
