@@ -12,10 +12,8 @@ app = Flask(__name__)
 # Configuração CORS
 # --------------------------
 # Permite localhost para testes e URL do Render
-CORS(app, resources={r"/*": {"origins": [
-    "http://127.0.0.1:5500",
-    "https://seu_app_render.onrender.com"
-]}})
+CORS(app, resources={r"/enviar": {"origins": "*"}})
+
 
 # --------------------------
 # Configuração Google Sheets via variável de ambiente
