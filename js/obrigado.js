@@ -5,9 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!btnSalvar || !formAlunos) return;
 
     // Determina a URL do servidor de acordo com o ambiente
-    const BASE_URL = window.location.hostname.includes("localhost")
-        ? "http://127.0.0.1:5000"
-        : "https://formulario-online-academia.onrender.com"; // <--- substitua pela sua URL do Render
+    const BASE_URL = "https://formulario-online-academia.onrender.com"; // <--- substitua pela sua URL do Render
 
     btnSalvar.addEventListener("click", async function (event) {
         event.preventDefault();

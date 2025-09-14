@@ -4,19 +4,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!btnSalvar || !formAlunos) return;
 
-    // Determina a URL do servidor de acordo com o ambiente
-    const BASE_URL = window.location.hostname.includes("localhost")
-        ? "http://127.0.0.1:5000"
-        : "https://formulario-online-academia.onrender.com"; 
+    // URL fixa do backend no Render
+    const BASE_URL = "https://formulario-online-academia.onrender.com";
 
     btnSalvar.addEventListener("click", async function (event) {
         event.preventDefault();
 
-        // Monta o objeto de dados dinamicamente
         const dados = {};
         dados.pagina = formAlunos.dataset.pagina || "index";
 
-        // Adiciona todos os campos do formulário automaticamente
         Array.from(formAlunos.elements).forEach(el => {
             if (el.name) {
                 if (el.type === "checkbox") {
