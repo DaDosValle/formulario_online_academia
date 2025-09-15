@@ -5,6 +5,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 import csv
 import os
 import json
+import uuid  # <--- import para gerar ID
 
 app = Flask(__name__)
 
@@ -54,7 +55,6 @@ def garantir_cabecalho():
     try:
         cabecalho_existente = sheet.row_values(1)
         if cabecalho_existente != CAMPOS_CSV:
-            # Substitui a primeira linha pelos campos corretos
             sheet.delete_row(1)
             sheet.insert_row(CAMPOS_CSV, 1)
     except Exception as e:
@@ -74,11 +74,13 @@ def receber_dados():
     print("Recebido:", dados)
 
     try:
-        # 1. Verifica se já existe um registro com este usuario_id
+        # 1. Garante que existe um usuario_id
         usuario_id = dados.get("usuario_id")
         if not usuario_id:
-            return jsonify({"status": "erro", "mensagem": "usuario_id não informado"}), 400
+            usuario_id = str(uuid.uuid4())  # gera novo se não vier
+            dados["usuario_id"] = usuario_id
 
+        # 2. Verifica se já existe um registro para este usuario_id
         registros = sheet.get_all_records()
         linha_existente = None
         for idx, registro in enumerate(registros, start=2):  # começa em 2 (linha 1 = cabeçalho)
@@ -86,15 +88,16 @@ def receber_dados():
                 linha_existente = idx
                 break
 
-        # 2. Monta a linha a ser salva
+        # 3. Monta a linha
         linha_sheet = [dados.get(campo, "") for campo in CAMPOS_CSV]
 
         if linha_existente:
-            # Atualiza linha existente
-            sheet.update(f"A{linha_existente}:{chr(64+len(CAMPOS_CSV))}{linha_existente}", [linha_sheet])
+            sheet.update(
+                f"A{linha_existente}:{chr(64+len(CAMPOS_CSV))}{linha_existente}",
+                [linha_sheet]
+            )
             print(f"✅ Atualizado usuário {usuario_id} na linha {linha_existente}")
         else:
-            # Cria nova linha
             sheet.append_row(linha_sheet, value_input_option="USER_ENTERED")
             print(f"🆕 Criado novo usuário {usuario_id}")
 
@@ -122,7 +125,11 @@ def receber_dados():
     except Exception as e:
         print("Erro ao salvar CSV:", e)
 
-    return jsonify({"status": "ok", "mensagem": "Dados recebidos com sucesso"}), 200
+    return jsonify({
+        "status": "ok",
+        "mensagem": "Dados recebidos com sucesso",
+        "usuario_id": dados["usuario_id"]
+    }), 200
 
 # --------------------------
 # Rodar app (local apenas)
