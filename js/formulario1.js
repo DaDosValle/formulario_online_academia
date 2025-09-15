@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Monta o objeto de dados dinamicamente
         const dados = {};
         dados.usuario_id = usuarioId;
-        dados.pagina = formAlunos.dataset.pagina || "formulario1";
+        dados.pagina1 = formAlunos.dataset.pagina || "formulario1";
 
         // Adiciona todos os campos do formulário automaticamente
         Array.from(formAlunos.elements).forEach(el => {

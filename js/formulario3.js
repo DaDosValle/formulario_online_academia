@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Monta o objeto de dados dinamicamente
         const dados = {};
         dados.usuario_id = usuarioId;
-        dados.pagina = formAlunos.dataset.pagina || "formulario3";
+        dados.pagina3 = formAlunos.dataset.pagina || "formulario3";
 
         Array.from(formAlunos.elements).forEach(el => {
             if (el.name) {
