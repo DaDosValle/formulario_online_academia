@@ -38,6 +38,7 @@ CSV_FILE = "respostas_formulario.csv"
 
 # Campos que vão para a planilha (sem usuario_id)
 CAMPOS_SHEET = [
+    "usuario_id"
     "pagina",
     "nome", "email",
     "pagina1", "motivacao", "frequencia_treino", "horario_preferido", "idade",

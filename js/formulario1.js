@@ -5,58 +5,47 @@ document.addEventListener("DOMContentLoaded", function () {
     // 🔑 Gera ou recupera ID do usuário
     let usuarioId = localStorage.getItem("usuario_id");
     if (!usuarioId) {
-    usuarioId = Date.now().toString(36) + Math.random().toString(36).substring(2);
-    localStorage.setItem("usuario_id", usuarioId);
-}
-
-    
-
+        usuarioId = Date.now().toString(36) + Math.random().toString(36).substring(2);
+        localStorage.setItem("usuario_id", usuarioId);
+    }
 
     if (!btnSalvar || !formAlunos) return;
 
-    // Determina a URL do servidor de acordo com o ambiente
-    const BASE_URL = "https://formulario-online-academia.onrender.com"; // <--- substitua pela sua URL do Render
+    // Nome da chave no localStorage para acumular dados
+    const STORAGE_KEY = "formulario_dados";
 
-    btnSalvar.addEventListener("click", async function (event) {
+    btnSalvar.addEventListener("click", function (event) {
         event.preventDefault();
 
-        // Monta o objeto de dados dinamicamente
-        const dados = {};
-        dados.usuario_id = usuarioId;
-        dados.pagina1 = formAlunos.dataset.pagina || "formulario1";
+        // Recupera dados acumulados ou inicia objeto vazio
+        let dadosAcumulados = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
 
-        // Adiciona todos os campos do formulário automaticamente
+        // Dados da página atual
+        const dadosPagina = {};
+        dadosPagina.usuario_id = usuarioId; // ID único do usuário
+        dadosPagina.pagina1 = formAlunos.dataset.pagina || "formulario1";
+
         Array.from(formAlunos.elements).forEach(el => {
             if (el.name) {
                 if (el.type === "checkbox") {
-                    dados[el.name] = el.checked;
+                    if (!dadosPagina[el.name]) dadosPagina[el.name] = [];
+                    if (el.checked) dadosPagina[el.name].push(el.value);
                 } else if (el.type === "radio") {
-                    if (el.checked) dados[el.name] = el.value;
+                    if (el.checked) dadosPagina[el.name] = el.value;
                 } else {
-                    dados[el.name] = el.value || "";
+                    dadosPagina[el.name] = el.value || "";
                 }
             }
         });
 
-        console.log("Fui clicado!");
-        console.log(dados);
+        // 🔄 Acumula dados
+        dadosAcumulados = { ...dadosAcumulados, ...dadosPagina };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(dadosAcumulados));
 
-        try {
-            const resposta = await fetch(`${BASE_URL}/enviar`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(dados)
-            });
+        console.log("Dados acumulados:", dadosAcumulados);
 
-            if (resposta.ok) {
-                const proximaPagina = formAlunos.dataset.next || "formulario2.html";
-                window.location.href = proximaPagina;
-            } else {
-                alert("Erro ao enviar os dados.");
-            }
-        } catch (err) {
-            console.error("Erro ao conectar com o servidor:", err);
-            alert("Não foi possível conectar com o servidor. Verifique sua conexão ou tente mais tarde.");
-        }
+        // Navega para próxima página
+        const proximaPagina = formAlunos.dataset.next || "formulario2.html";
+        window.location.href = proximaPagina;
     });
 });
