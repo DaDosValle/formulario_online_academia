@@ -37,15 +37,15 @@ sheet = client.open_by_key(SHEET_ID).sheet1
 CSV_FILE = "respostas_formulario.csv"
 
 CAMPOS_CSV = [
-    "usuario_id",   # <-- adicionado
+    "usuario_id",   
     "pagina",
     "nome", "email",
-    "motivacao", "frequencia_treino", "horario_preferido", "idade",
+    "formulario1", "motivacao", "frequencia_treino", "horario_preferido", "idade",
     "regiao", "estado_civil", "pessoas_casa", "profissao",
-    "motivacao_primeira", "importa_academia", "medo",
+    "motivacao_primeira", "importa_academia", "medo","formulario2",
     "maisGosta", "menosGosta", "notaAtendimento", "comoIngressou",
     "treinouAnte", "redesSociais", "acompanhamento", "modalidades", "localizacaoImporta",
-    "indicaria", "fidelidade", "contribuicao", "medicao_mensal", "motivo_troca", "humor_academia"
+    "formulario3", "indicaria", "fidelidade", "contribuicao", "medicao_mensal", "motivo_troca", "humor_academia"
 ]
 
 # --------------------------
