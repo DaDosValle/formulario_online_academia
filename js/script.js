@@ -2,15 +2,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const btnSalvar = document.querySelector("#buttonIndex");
     const formAlunos = document.querySelector("#formIndex");
 
-
     // 🔑 Gera ou recupera ID do usuário
     let usuarioId = localStorage.getItem("usuario_id");
     if (!usuarioId) {
-    usuarioId = Date.now().toString(36) + Math.random().toString(36).substring(2);
-    localStorage.setItem("usuario_id", usuarioId);
-
-}
-
+        usuarioId = Date.now().toString(36) + Math.random().toString(36).substring(2);
+        localStorage.setItem("usuario_id", usuarioId);
+    }
 
     if (!btnSalvar || !formAlunos) return;
 
@@ -21,13 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
 
         const dados = {};
-        dados.usuario_id = usuarioId;
+        dados.usuario_id = usuarioId; // ✅ sempre manda o mesmo ID do usuário // ALTERADO
         dados.pagina = formAlunos.dataset.pagina || "index";
 
         Array.from(formAlunos.elements).forEach(el => {
             if (el.name) {
                 if (el.type === "checkbox") {
-                    dados[el.name] = el.checked;
+                    if (!dados[el.name]) dados[el.name] = []; // ALTERADO
+                    if (el.checked) dados[el.name].push(el.value); // ALTERADO
                 } else if (el.type === "radio") {
                     if (el.checked) dados[el.name] = el.value;
                 } else {
