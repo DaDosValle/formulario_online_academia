@@ -55,12 +55,10 @@ def garantir_cabecalho():
     try:
         cabecalho_existente = sheet.row_values(1)
         if cabecalho_existente != CAMPOS_CSV:
-            sheet.delete_row(1)
-            sheet.insert_row(CAMPOS_CSV, 1)
+            sheet.update('1:1', [CAMPOS_CSV])
     except Exception as e:
         print("Erro ao verificar/ajustar cabeçalho:", e)
 
-garantir_cabecalho()
 
 # --------------------------
 # Rota para receber dados
@@ -81,12 +79,13 @@ def receber_dados():
             dados["usuario_id"] = usuario_id
 
         # 2. Verifica se já existe um registro para este usuario_id
-        registros = sheet.get_all_records()
+        registros = sheet.get_all_records(expected_headers=CAMPOS_CSV)
         linha_existente = None
         for idx, registro in enumerate(registros, start=2):  # começa em 2 (linha 1 = cabeçalho)
             if registro.get("usuario_id") == usuario_id:
                 linha_existente = idx
                 break
+
 
         # 3. Monta a linha
         linha_sheet = [dados.get(campo, "") for campo in CAMPOS_CSV]

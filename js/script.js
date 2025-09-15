@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
 
         const dados = {};
-        dados.usuario_id = usuarioId; // ✅ sempre manda o mesmo ID do usuário // ALTERADO
+        dados.usuario_id = usuarioId; //  sempre manda o mesmo ID do usuári
         dados.pagina = formAlunos.dataset.pagina || "index";
 
         Array.from(formAlunos.elements).forEach(el => {
