@@ -5,7 +5,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 import csv
 import os
 import json
-import uuid  # <--- import para gerar ID
+import uuid  # para gerar ID
 
 app = Flask(__name__)
 
@@ -37,12 +37,12 @@ sheet = client.open_by_key(SHEET_ID).sheet1
 CSV_FILE = "respostas_formulario.csv"
 
 CAMPOS_CSV = [
-    "usuario_id",   
+    "usuario_id",
     "pagina",
     "nome", "email",
     "pagina1", "motivacao", "frequencia_treino", "horario_preferido", "idade",
     "regiao", "estado_civil", "pessoas_casa", "profissao",
-    "motivacao_primeira", "importa_academia", "medo","pagina2",
+    "motivacao_primeira", "importa_academia", "medo", "pagina2",
     "maisGosta", "menosGosta", "notaAtendimento", "comoIngressou",
     "treinouAnte", "redesSociais", "acompanhamento", "modalidades", "localizacaoImporta",
     "pagina3", "indicaria", "fidelidade", "contribuicao", "medicao_mensal", "motivo_troca", "humor_academia"
@@ -59,6 +59,15 @@ def garantir_cabecalho():
     except Exception as e:
         print("Erro ao verificar/ajustar cabeçalho:", e)
 
+# --------------------------
+# Função auxiliar: número → letra da coluna (A, B, ..., Z, AA, AB...)
+# --------------------------
+def num_para_coluna(n):
+    resultado = ""
+    while n:
+        n, r = divmod(n - 1, 26)
+        resultado = chr(65 + r) + resultado
+    return resultado
 
 # --------------------------
 # Rota para receber dados
@@ -86,13 +95,13 @@ def receber_dados():
                 linha_existente = idx
                 break
 
-
         # 3. Monta a linha
         linha_sheet = [dados.get(campo, "") for campo in CAMPOS_CSV]
 
         if linha_existente:
+            ultima_coluna = num_para_coluna(len(CAMPOS_CSV))
             sheet.update(
-                f"A{linha_existente}:{chr(64+len(CAMPOS_CSV))}{linha_existente}",
+                f"A{linha_existente}:{ultima_coluna}{linha_existente}",
                 [linha_sheet]
             )
             print(f"✅ Atualizado usuário {usuario_id} na linha {linha_existente}")
@@ -131,7 +140,8 @@ def receber_dados():
     }), 200
 
 # --------------------------
-# Rodar app (local apenas)
+# Rodar app (local e Render)
 # --------------------------
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080, debug=True)
+    port = int(os.environ.get("PORT", 8080))  # Render define PORT
+    app.run(host="0.0.0.0", port=port, debug=False)
