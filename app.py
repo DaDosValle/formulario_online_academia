@@ -5,7 +5,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 import csv
 import os
 import json
-import uuid  # para gerar ID
+import uuid  # <--- import para gerar ID
 
 app = Flask(__name__)
 
@@ -59,15 +59,6 @@ def garantir_cabecalho():
     except Exception as e:
         print("Erro ao verificar/ajustar cabeçalho:", e)
 
-# --------------------------
-# Função auxiliar: número → letra da coluna (A, B, ..., Z, AA, AB...)
-# --------------------------
-def num_para_coluna(n):
-    resultado = ""
-    while n:
-        n, r = divmod(n - 1, 26)
-        resultado = chr(65 + r) + resultado
-    return resultado
 
 # --------------------------
 # Rota para receber dados
@@ -95,13 +86,26 @@ def receber_dados():
                 linha_existente = idx
                 break
 
-        # 3. Monta a linha
-        linha_sheet = [dados.get(campo, "") for campo in CAMPOS_CSV]
-
+        # 3. Se já existe, mescla os dados antigos com os novos
         if linha_existente:
-            ultima_coluna = num_para_coluna(len(CAMPOS_CSV))
+            valores_existentes = sheet.row_values(linha_existente)
+            dados_antigos = dict(zip(CAMPOS_CSV, valores_existentes + [""] * (len(CAMPOS_CSV) - len(valores_existentes))))
+            for campo in CAMPOS_CSV:
+                if not dados.get(campo):  # mantém valor antigo se não veio no novo request
+                    dados[campo] = dados_antigos.get(campo, "")
+
+        # 4. Monta a linha com conversão de listas para string
+        linha_sheet = []
+        for campo in CAMPOS_CSV:
+            valor = dados.get(campo, "")
+            if isinstance(valor, list):
+                valor = ", ".join(valor)
+            linha_sheet.append(valor)
+
+        # 5. Atualiza ou cria registro
+        if linha_existente:
             sheet.update(
-                f"A{linha_existente}:{ultima_coluna}{linha_existente}",
+                f"A{linha_existente}:{chr(64+len(CAMPOS_CSV))}{linha_existente}",
                 [linha_sheet]
             )
             print(f"✅ Atualizado usuário {usuario_id} na linha {linha_existente}")
@@ -139,9 +143,9 @@ def receber_dados():
         "usuario_id": dados["usuario_id"]
     }), 200
 
+
 # --------------------------
-# Rodar app (local e Render)
+# Rodar app (local apenas)
 # --------------------------
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))  # Render define PORT
-    app.run(host="0.0.0.0", port=port, debug=False)
+    app.run(host="0.0.0.0", port=8080, debug=True)
