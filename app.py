@@ -27,7 +27,7 @@ creds_dict = json.loads(creds_json)
 creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 client = gspread.authorize(creds)
 
-SHEET_ID = "1PG1NMh5gN2N77PEN301qtMTpvT63ks5AOa4A_X08h4E"  #planilha
+SHEET_ID = "1PG1NMh5gN2N77PEN301qtMTpvT63ks5AOa4A_X08h4E"  # sua planilha
 sheet = client.open_by_key(SHEET_ID).sheet1
 
 # --------------------------
@@ -36,6 +36,7 @@ sheet = client.open_by_key(SHEET_ID).sheet1
 CSV_FILE = "respostas_formulario.csv"
 
 CAMPOS_CSV = [
+    "usuario_id",   # <-- adicionado
     "pagina",
     "nome", "email",
     "motivacao", "frequencia_treino", "horario_preferido", "idade",
@@ -72,17 +73,31 @@ def receber_dados():
     dados = request.json or {}
     print("Recebido:", dados)
 
-    # --------------------------
-    # Salvar no Google Sheets
-    # --------------------------
     try:
+        # 1. Verifica se já existe um registro com este usuario_id
+        usuario_id = dados.get("usuario_id")
+        if not usuario_id:
+            return jsonify({"status": "erro", "mensagem": "usuario_id não informado"}), 400
+
+        registros = sheet.get_all_records()
+        linha_existente = None
+        for idx, registro in enumerate(registros, start=2):  # começa em 2 (linha 1 = cabeçalho)
+            if registro.get("usuario_id") == usuario_id:
+                linha_existente = idx
+                break
+
+        # 2. Monta a linha a ser salva
         linha_sheet = [dados.get(campo, "") for campo in CAMPOS_CSV]
 
-        # Garante que o tamanho da linha bate com o cabeçalho
-        while len(linha_sheet) < len(CAMPOS_CSV):
-            linha_sheet.append("")
+        if linha_existente:
+            # Atualiza linha existente
+            sheet.update(f"A{linha_existente}:{chr(64+len(CAMPOS_CSV))}{linha_existente}", [linha_sheet])
+            print(f"✅ Atualizado usuário {usuario_id} na linha {linha_existente}")
+        else:
+            # Cria nova linha
+            sheet.append_row(linha_sheet, value_input_option="USER_ENTERED")
+            print(f"🆕 Criado novo usuário {usuario_id}")
 
-        sheet.append_row(linha_sheet, value_input_option="USER_ENTERED")
     except Exception as e:
         print("Erro ao salvar no Google Sheets:", e)
 

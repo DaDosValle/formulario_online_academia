@@ -2,6 +2,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const btnSalvar = document.querySelector("#btnForm1");
     const formAlunos = document.querySelector("#form1");
 
+    // 🔑 Gera ou recupera ID do usuário
+    let usuarioId = localStorage.getItem("usuario_id");
+    if (!usuarioId) {
+    usuarioId = Date.now().toString(36) + Math.random().toString(36).substring(2);
+    localStorage.setItem("usuario_id", usuarioId);
+}
+
+    
+
+
     if (!btnSalvar || !formAlunos) return;
 
     // Determina a URL do servidor de acordo com o ambiente
@@ -12,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Monta o objeto de dados dinamicamente
         const dados = {};
+        dados.usuario_id = usuarioId;
         dados.pagina = formAlunos.dataset.pagina || "formulario1";
 
         // Adiciona todos os campos do formulário automaticamente

@@ -2,6 +2,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const btnSalvar = document.querySelector("#buttonIndex");
     const formAlunos = document.querySelector("#formIndex");
 
+
+    // 🔑 Gera ou recupera ID do usuário
+    let usuarioId = localStorage.getItem("usuario_id");
+    if (!usuarioId) {
+    usuarioId = Date.now().toString(36) + Math.random().toString(36).substring(2);
+    localStorage.setItem("usuario_id", usuarioId);
+
+}
+
+
     if (!btnSalvar || !formAlunos) return;
 
     // URL fixa do backend no Render
@@ -11,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
 
         const dados = {};
+        dados.usuario_id = usuarioId;
         dados.pagina = formAlunos.dataset.pagina || "index";
 
         Array.from(formAlunos.elements).forEach(el => {
