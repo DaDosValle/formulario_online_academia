@@ -36,8 +36,8 @@ sheet = client.open_by_key(SHEET_ID).sheet1
 # --------------------------
 CSV_FILE = "respostas_formulario.csv"
 
-CAMPOS_CSV = [
-    "usuario_id",
+# Campos que vão para a planilha (sem usuario_id)
+CAMPOS_SHEET = [
     "pagina",
     "nome", "email",
     "pagina1", "motivacao", "frequencia_treino", "horario_preferido", "idade",
@@ -48,17 +48,21 @@ CAMPOS_CSV = [
     "pagina3", "indicaria", "fidelidade", "contribuicao", "medicao_mensal", "motivo_troca", "humor_academia"
 ]
 
+# Campos completos para CSV (inclui usuario_id)
+CAMPOS_CSV = ["usuario_id"] + CAMPOS_SHEET
+
 # --------------------------
 # Cabeçalho no Google Sheets
 # --------------------------
 def garantir_cabecalho():
     try:
         cabecalho_existente = sheet.row_values(1)
-        if cabecalho_existente != CAMPOS_CSV:
-            sheet.update('1:1', [CAMPOS_CSV])
+        if cabecalho_existente != CAMPOS_SHEET:
+            sheet.update('1:1', [CAMPOS_SHEET])
     except Exception as e:
         print("Erro ao verificar/ajustar cabeçalho:", e)
 
+garantir_cabecalho()
 
 # --------------------------
 # Rota para receber dados
@@ -79,33 +83,25 @@ def receber_dados():
             dados["usuario_id"] = usuario_id
 
         # 2. Verifica se já existe um registro para este usuario_id
-        registros = sheet.get_all_records(expected_headers=CAMPOS_CSV)
+        registros = sheet.get_all_records()
         linha_existente = None
         for idx, registro in enumerate(registros, start=2):  # começa em 2 (linha 1 = cabeçalho)
             if registro.get("usuario_id") == usuario_id:
                 linha_existente = idx
                 break
 
-        # 3. Se já existe, mescla os dados antigos com os novos
-        if linha_existente:
-            valores_existentes = sheet.row_values(linha_existente)
-            dados_antigos = dict(zip(CAMPOS_CSV, valores_existentes + [""] * (len(CAMPOS_CSV) - len(valores_existentes))))
-            for campo in CAMPOS_CSV:
-                if not dados.get(campo):  # mantém valor antigo se não veio no novo request
-                    dados[campo] = dados_antigos.get(campo, "")
-
-        # 4. Monta a linha com conversão de listas para string
+        # 3. Monta linha para planilha sem incluir usuario_id
         linha_sheet = []
-        for campo in CAMPOS_CSV:
+        for campo in CAMPOS_SHEET:
             valor = dados.get(campo, "")
             if isinstance(valor, list):
                 valor = ", ".join(valor)
             linha_sheet.append(valor)
 
-        # 5. Atualiza ou cria registro
+        # 4. Atualiza ou cria registro
         if linha_existente:
             sheet.update(
-                f"A{linha_existente}:{chr(64+len(CAMPOS_CSV))}{linha_existente}",
+                f"A{linha_existente}:{chr(64+len(CAMPOS_SHEET))}{linha_existente}",
                 [linha_sheet]
             )
             print(f"✅ Atualizado usuário {usuario_id} na linha {linha_existente}")
@@ -117,7 +113,7 @@ def receber_dados():
         print("Erro ao salvar no Google Sheets:", e)
 
     # --------------------------
-    # Salvar no CSV local
+    # Salvar no CSV local (inclui usuario_id)
     # --------------------------
     try:
         linha_csv = {campo: "" for campo in CAMPOS_CSV}
@@ -142,7 +138,6 @@ def receber_dados():
         "mensagem": "Dados recebidos com sucesso",
         "usuario_id": dados["usuario_id"]
     }), 200
-
 
 # --------------------------
 # Rodar app (local apenas)
