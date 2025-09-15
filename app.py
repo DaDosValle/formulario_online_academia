@@ -40,12 +40,12 @@ CAMPOS_CSV = [
     "usuario_id",   
     "pagina",
     "nome", "email",
-    "formulario1", "motivacao", "frequencia_treino", "horario_preferido", "idade",
+    "pagina2", "motivacao", "frequencia_treino", "horario_preferido", "idade",
     "regiao", "estado_civil", "pessoas_casa", "profissao",
-    "motivacao_primeira", "importa_academia", "medo","formulario2",
+    "motivacao_primeira", "importa_academia", "medo","pagina3",
     "maisGosta", "menosGosta", "notaAtendimento", "comoIngressou",
     "treinouAnte", "redesSociais", "acompanhamento", "modalidades", "localizacaoImporta",
-    "formulario3", "indicaria", "fidelidade", "contribuicao", "medicao_mensal", "motivo_troca", "humor_academia"
+    "pagina4", "indicaria", "fidelidade", "contribuicao", "medicao_mensal", "motivo_troca", "humor_academia"
 ]
 
 # --------------------------
