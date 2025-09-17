@@ -158,3 +158,63 @@ footer {
         font-size: 1.2rem;
     }
 }
+
+
+/* Responsividade */
+@media screen and (max-width: 1200px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+        
+    }
+
+    .videoApresentacao {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+
+    .video {
+        width:60%;
+        height: auto;
+        
+    }
+
+    .boxFormulario {
+        display: flex;
+        align-items: center;
+        width: 90vw;
+        margin-top: 5px;
+        padding: 8% 6%;
+        margin-top: 5%;
+        margin-bottom: 30%;
+        box-shadow: none; /* mais leve no mobile */
+    }
+
+    h1 {
+        font-size: 2.3rem;
+        text-align: center;
+        padding-left: 0%;
+        padding-right: 0%;        ;
+    }
+
+    p {
+        font-size: 1.6rem;
+        text-align: center;
+        padding-bottom: 20px;
+    }
+
+    .camposEntrada {
+        width: 90%;
+        
+    }
+
+    footer {
+        display: flex;
+        justify-content: center;
+        padding: 6% 2%;
+                
+    }
+}
