@@ -125,7 +125,7 @@ footer {
     .imagemInicial {
         display: flex;
         justify-content: center;
-        width: 70vw;     /* ocupa toda a largura disponível */
+        width: 70%;     /* ocupa toda a largura disponível */
         height: auto;    /* mantém a proporção */
         
     }
@@ -137,7 +137,7 @@ footer {
         width: 80vw;
         margin-top: 5px;
         padding: 8% 6%;
-        margin-bottom: 20px;
+        margin-bottom: 40%;
         box-shadow: none; /* mais leve no mobile */
     }
 
@@ -159,5 +159,6 @@ footer {
 
     footer {
         justify-content: center;
+        align-items: center;
     }
 }
