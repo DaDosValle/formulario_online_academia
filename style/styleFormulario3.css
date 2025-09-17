@@ -51,7 +51,11 @@ p {
     box-shadow: 5px 5px 10px 7px #5e5e5e;
 }
 
-
+.grupoInput {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
 /* Labels e textos */
 label {
@@ -157,15 +161,17 @@ footer {
     }
 
     .boxFormulario {
-        display: flex;
-        align-items: center;
-        width: 90vw;
-        margin-top: 5px;
-        padding: 8% 6%;
-        margin-top: 5%;
-        margin-bottom: 30%;
-        box-shadow: none; /* mais leve no mobile */
-    }
+    display: flex;
+    flex-direction: column; /* garante coluna */
+    align-items: flex-start; /* alinha os labels/inputs à esquerda */
+    width: 90vw;
+    margin-top: 5px;
+    padding: 8% 6%;
+    margin-top: 5%;
+    margin-bottom: 30%;
+    box-shadow: none;
+}
+
 
     .form33 {
         padding: 1%;
