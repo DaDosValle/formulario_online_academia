@@ -162,8 +162,8 @@ footer {
 
     .boxFormulario {
     display: flex;
-    flex-direction: column; /* garante coluna */
-    align-items: flex-start; /* alinha os labels/inputs à esquerda */
+    flex-direction: column; 
+    align-items: flex-start; 
     width: 90vw;
     margin-top: 5px;
     padding: 8% 6%;
@@ -176,6 +176,21 @@ footer {
     .form33 {
         padding: 1%;
         margin: 2%;
+    }
+
+
+    .motivacaoCheck label, .reside label {
+        text-wrap: wrap;
+        font-weight: 300;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }   
+
+    .contribui {
+        display: flex;
+        text-wrap: wrap;
     }
 
     h1 {
