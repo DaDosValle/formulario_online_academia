@@ -20,7 +20,7 @@ main {
 .imagemInicial {
     display: flex;
     width: 50vh;
-    height: 100vh;
+    height: auto;
 }
 
 .fundoBox {
@@ -137,6 +137,7 @@ footer {
         width: 80vw;
         margin-top: 5px;
         padding: 8% 6%;
+        margin-bottom: 20px;
         box-shadow: none; /* mais leve no mobile */
     }
 
@@ -154,5 +155,9 @@ footer {
     .camposEntrada {
         width: 90%;
         
+    }
+
+    footer {
+        justify-content: center;
     }
 }
