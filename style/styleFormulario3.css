@@ -51,11 +51,7 @@ p {
     box-shadow: 5px 5px 10px 7px #5e5e5e;
 }
 
-.grupoInput {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
+
 
 /* Labels e textos */
 label {
