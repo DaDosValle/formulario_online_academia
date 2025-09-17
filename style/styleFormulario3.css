@@ -161,16 +161,33 @@ footer {
     }
 
     .boxFormulario {
-    display: flex;
-    flex-direction: column; 
-    align-items: flex-start; 
-    width: 90vw;
-    margin-top: 5px;
-    padding: 8% 6%;
-    margin-top: 5%;
-    margin-bottom: 30%;
-    box-shadow: none;
-}
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 90vw;
+        margin-top: 5px;
+        padding: 8% 6%;
+        margin-top: 5%;
+        margin-bottom: 30%;
+        box-shadow: none;
+    }
+
+  /* garante que os elementos de formulário não ultrapassem o box */
+    .boxFormulario label,
+    .boxFormulario input,
+    .boxFormulario select,
+    .boxFormulario textarea {
+        max-width: 100%;
+        box-sizing: border-box; /* inclui padding/borda no cálculo da largura */
+        word-wrap: break-word;  /* se texto for grande, quebra */
+    }
+
+    .grupoInput {
+        width: 100%; /* força ocupar só o espaço do box */
+    }
+
+
+
 
 
     .form33 {
@@ -179,19 +196,7 @@ footer {
     }
 
 
-    .motivacaoCheck label, .reside label {
-        text-wrap: wrap;
-        font-weight: 300;
-        font-size: 1.1rem;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }   
 
-    .contribui {
-        display: flex;
-        text-wrap: wrap;
-    }
 
     h1 {
         font-size: 2.3rem;
