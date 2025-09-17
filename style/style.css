@@ -125,7 +125,8 @@ footer {
     .imagemInicial {
         display: flex;
         justify-content: center;
-        width: 70%;     /* ocupa toda a largura disponível */
+        align-items: center;
+        width: 60%;     /* ocupa toda a largura disponível */
         height: auto;    /* mantém a proporção */
         
     }
@@ -158,6 +159,7 @@ footer {
     }
 
     footer {
+        display: flex;
         justify-content: center;
         align-items: center;
     }
