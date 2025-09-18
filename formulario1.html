@@ -90,7 +90,7 @@
                                 <option value="14-16">Das 14h às 16h</option>
                                 <option value="16-18">Das 16h às 18h</option>
                                 <option value="18-20">Das 18h às 20h</option>
-                                <option value="20-22">Das 20h às 22h</option>
+                                <option value="20-22">Das 20h às 21:50</option>
                             </select>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                     <!-- Idade -->
                     <div class="idade">    
                         <label for="idade">Sua idade:</label>
-                        <input id="idade" type="number" name="idade" min="10" max="80" placeholder="" required autocomplete="on">
+                        <input id="idade" type="number" name="idade" min="13" max="90" placeholder="" required autocomplete="on">
                     </div>
 
                     <!-- Região -->
@@ -111,6 +111,9 @@
                             <option value="invasao">Invasão</option>
                             <option value="novo_condominio_valeria">Novo Condomínio Valéria</option>
                             <option value="perto_academia">Na rua da academia</option>
+                            <option value="bairros_diversos">Outros Bairros</option>
+                            <option value="general">Rua do General</option>
+                            <option value="outras_ruas">Outros Ruas</option>
                         </select>
                     </div>
 
@@ -131,6 +134,10 @@
                             <label>
                                 <input type="radio" name="estado_civil" value="namorando">
                                 Namorando(a)
+                            </label>
+                            <label>
+                                <input type="radio" name="estado_civil" value="ficando">
+                                Ficando
                             </label>
                         </div>
                     </div>
@@ -176,9 +183,11 @@
                             <option value="emagrecer">Emagrecer</option>
                             <option value="musculo">Ganhar Músculos</option>
                             <option value="saude">Melhorar Problema de Saúde</option>
-                            <option value="acompanhar">Acompanhar Alguém</option>
+                            <option value="acompanhar">Acompanhar Amigo/Parente</option>
                             <option value="sedentarismo">Sair do Sedentarismo</option>
                             <option value="bullying">Evitar Bullying</option>
+                            <option value="mental">Melhorar a saúde mental</option>
+                            <option value="autoestima">Melhorar a autoestima</option>
                         </select>
                     </div>
 
@@ -190,7 +199,7 @@
                         <div class="importaLabel">
                             <label>
                                 <input type="radio" name="importa_academia" value="estrutura">
-                                Estrutura da Academia
+                                Estrutura da Academia e Equipamentos
                             </label>
                             <label>
                                 <input type="radio" name="importa_academia" value="instrutores">
@@ -206,11 +215,15 @@
                             </label>
                             <label>
                                 <input type="radio" name="importa_academia" value="resultado">
-                                Ter Resultado Rápido
+                                Ter Resultado Rápido e Visível
                             </label>
                             <label>
                                 <input type="radio" name="importa_academia" value="acompanhamento">
                                 Sentir-se bem acompanhado/instruído
+                            </label>
+                            <label>
+                                <input type="radio" name="importa_academia" value="Limpeza">
+                                Limpeza e organização
                             </label>
                             </div>
                     </div>
@@ -222,10 +235,12 @@
                         </div>
                         <select id="medo" name="medo" required>
                             <option value="0"></option>    
-                            <option value="beleza">Diminuir a Beleza</option>
-                            <option value="acamado">Ficar Acamado</option>
+                            <option value="beleza">Não me sentir bem com meu corpo</option>
+                            <option value="acamado">Doenças futuras</option>
+                            <option value="acamado">Aliviar o estresse e a ansiedade</option>
+                            <option value="acamado">Evitar o ganho de peso e o 'efeito sanfona</option>
                             <option value="dependencia">Na velhice - Depender dos outros</option>
-                            <option value="trabalho">Não conseguir trabalhar mais</option>
+                            <option value="trabalho">Perder energia e disposição no dia a dia.</option>
                             <option value="filho">Não ver meu filho crescer</option>
                         </select>
                     </div>

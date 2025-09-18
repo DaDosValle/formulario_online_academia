@@ -172,22 +172,18 @@ footer {
         box-shadow: none;
     }
 
-  /* garante que os elementos de formulário não ultrapassem o box */
+  
     .boxFormulario label,
     .boxFormulario input,
     .boxFormulario select,
     .boxFormulario textarea {
         max-width: 100%;
-        box-sizing: border-box; /* inclui padding/borda no cálculo da largura */
-        word-wrap: break-word;  /* se texto for grande, quebra */
-    }
+        box-sizing: border-box; 
+        word-wrap: break-word; 
 
     .grupoInput {
-        width: 100%; /* força ocupar só o espaço do box */
+        width: 100%; /
     }
-
-
-
 
 
     .form33 {
